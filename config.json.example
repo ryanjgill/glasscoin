@@ -1,5 +1,0 @@
-{
-	"client_secret": "",
-	"client_id": "",
-	"redirect_url": "http://localhost:8099/oauth2callback"
-}

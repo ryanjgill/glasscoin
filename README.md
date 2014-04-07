@@ -1,7 +1,8 @@
-# glasscoin
+# Vertcoin Info
+
 <img src='https://raw.github.com/jaxbot/glasscoin/master/glasscoin.png'>
 
-Proof of concept Glassware using the Mirror API to stream in Bitcoin data.
 
-Written in Node.js
+Forked from Glasscoin by Jaxbot.
+Converted to display Vertcoin infomation.
 

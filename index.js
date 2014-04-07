@@ -1,13 +1,15 @@
-/* Glasscoin
- * Bitcoin ticker app for Glass
- * Example, primarily, but it does work.
- * Jonathan Warner, 2014
+/* 
+ * Vertcoin ticker for Glass 
+ * Created with the help of the following tutorial:
+ * http://okaysass.com/posts/14-03-16-tutorial-node-js-mirror-api-google-glass
+ * Thanks Jonathan!
  */
 
 // Standard modules
 var http = require('http');
 var url = require("url");
 var fs = require('fs');
+var moment = require('moment');
 
 // Google API
 var googleapis = require('googleapis');
@@ -15,8 +17,9 @@ var OAuth2Client = googleapis.OAuth2Client;
 
 // dot templates
 var dot = require('dot');
+
 var cards = {
-	"btc": dot.template(fs.readFileSync("cards/btc.html"))
+	"vtc": dot.template(fs.readFileSync("cards/vtc.html"))
 };
 
 // Load in the client configuration and attach to OAuth client
@@ -89,37 +92,39 @@ googleapis.discover('mirror','v1').execute(function(err,client) {
 
 // download the ticker data and build data
 function getMarketData() {
-	http.get("http://api.bitcoinaverage.com/ticker/global/USD/", function(res) {
-		var data = "";
+	var data,
+			market;
+
+	http.get("http://coinmarketcap.northpole.ro/api/vtc.json", function(res) {
+		data = "";
 		res.on('data', function(chunk) {
 			data += chunk;
 		});
 		res.on('end', function() {
-			var market = JSON.parse(data.toString());
-			var delta = 100 * (market.last - market["24h_avg"]) / market["24h_avg"];
+			market = JSON.parse(data.toString());
+			market.delta = (+market.change24.split(' %')[0]);
+			market.timeDisplay = moment.unix(market.timestamp).format("dddd, MMMM Do YYYY, h:mm a");
+
+			console.log('marketObj');
+			console.log(market);
 
 			updateCards({
-				btclast: market.last,
-				btcdelta: delta.toPrecision(3),
-				avg: market['24h_avg'],
-				time: market.timestamp
+				vtcLast: (+market.price).toFixed(2),
+				vtcDelta: market.delta.toFixed(2),
+				time: market.timeDisplay,
+				marketCap: market.marketCap
 			});
 		});
-		res.on('error', function(err) {
-			console.warn(err);
-		});
-	}).on('error', function(err) {
-		console.warn(err);
 	});
 }
 
 // update all the user cards
 function updateCards(data) {
-	var html = cards.btc(data);
+	var html = cards.vtc(data);
 	
 	for (i = 0; i < client_tokens.length; i++) {
 		oauth2Client.credentials = client_tokens[i];
-		apiclient.mirror.timeline.list({ "sourceItemId": "glasscoin", "isPinned": true })
+		apiclient.mirror.timeline.list({ "sourceItemId": "vertcoin", "isPinned": true })
 		.withAuthClient(oauth2Client)
 		.execute(function(err,data) {
 			var apiCall;
@@ -136,7 +141,7 @@ function updateCards(data) {
 						{"action":"TOGGLE_PINNED"},
 						{"action":"DELETE"}
 					],
-					"sourceItemId": "glasscoin"
+					"sourceItemId": "vertcoin"
 				});
 			}
 

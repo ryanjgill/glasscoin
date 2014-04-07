@@ -1,0 +1,43 @@
+<style type="text/css">
+	img {
+		display: inline-block;
+		float:left;
+		width: 150px;
+		height: 150px;
+		margin: 10px 20px 0 0;
+	}
+	.title {
+		font-size: 2em;
+		font-weight: 700;
+		color: #195A2F;
+		margin-bottom: 10px;
+	}
+	.red {
+		color: red;
+	}
+	.green {
+		color: green;
+	}
+	.currentPrice {
+		clear: both;
+		display: inline-block;
+		margin: 0 40px 15px 0;
+	}
+	.vtcDelta {
+		clear: both;
+		display: inline-block;
+	}
+	footer {
+		margin: 0 0 20px 40px;
+	}
+</style>
+<!-- Card --> 
+<article>
+	<section>
+		<img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/4579/Vertlogo.png' width='150' height='150'>
+		<div class='title'>Vertcoin</div>
+		<div class='currentPrice'>${{= it.vtcLast }}</div>
+		<div class='vtcDelta {{= ((it.vtcDelta < 0) ? 'red' : 'green') }}'>{{= it.vtcDelta }}%</div>		
+	</section>
+	<footer class='text-minor'>Mkt Cap: ${{= it.marketCap }}</footer>
+</article>

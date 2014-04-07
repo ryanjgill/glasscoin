@@ -1,15 +1,16 @@
 {
-  "name": "glasscoin",
+  "name": "vertcoin",
   "version": "0.0.0",
-  "description": "Bitcoin/Litecoin/Dogecoin updates for Glass",
+  "description": "Vertcoin updates for Glass",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Jonathan Warner (Jaxbot)",
+  "author": "Ryan Gill --> this was forked from Jonathan Warner (Jaxbot) - Glasscoin",
   "license": "BSD-2-Clause",
   "dependencies": {
     "googleapis": "~0.6.1",
-    "dot": "~1.0.2"
+    "dot": "~1.0.2",
+    "moment": "~2.5.1"
   }
 }
