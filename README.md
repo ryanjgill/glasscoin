@@ -1,6 +1,6 @@
 # Vertcoin Info
 
-<img src='https://raw.github.com/jaxbot/glasscoin/master/glasscoin.png'>
+<img src='https://raw.githubusercontent.com/ryanjgill/glasscoin/Vertcoin/Vertcoin%20Info.png'>
 
 
 Forked from Glasscoin by Jaxbot.
